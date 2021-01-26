@@ -8,7 +8,10 @@
 		<link rel="stylesheet" href="/mdb/plugins/plugins-all.min.css" />
 	</head>
 	<body>
-		@RenderBody()
+		<partial name="_SidenavPartial" />
+		<main id="main">
+			@RenderBody()
+		</main>
 		<script src="/mdb/mdb.min.js"></script>
 		<script src="/mdb/plugins/plugins-all.min.js"></script>
 	</body>

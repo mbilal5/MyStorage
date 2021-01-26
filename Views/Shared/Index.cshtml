@@ -1,3 +1,6 @@
+@model string
+
+
 <div class="vh-100 vw-100 d-flex justify-content-center align-items-center">
-	<h1>Hello World</h1>
+	<h1>Hello @(Model ?? "World")</h1>
 </div>

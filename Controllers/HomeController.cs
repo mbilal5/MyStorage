@@ -2,14 +2,26 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Graph;
+using Microsoft.Identity.Web;
 
 namespace Project.Controllers
 {
+	[AuthorizeForScopes]
 	public class HomeController : Controller
 	{
-		public IActionResult Index()
+		private readonly GraphServiceClient _client;
+		
+		
+		public HomeController(GraphServiceClient client)
 		{
-			return View();
+			_client = client;
+		}
+		
+		public async Task<IActionResult> Index()
+		{
+			var user = await _client.Me.Request().GetAsync();
+			return View("Index", user.DisplayName);
 		}
 	}
 }

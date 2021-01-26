@@ -1,0 +1,16 @@
+@model IEnumerable<DriveViewModel>
+
+<div class="d-flex flex-column w-100 h-100">
+	<div class="p-5 pb-0">
+		<h5>Drives</h5>
+	</div>
+	<div class="d-flex flex-row flex-wrap">
+		@foreach (var drive in Model)
+		{
+			<a href="/drives/@(drive.Id)" class="text-dark m-5">
+				<span class="fas fa-hdd fa-5x"></span>
+				<p class="text-center text-muted">@(drive.Name)</p>				
+			</a>
+		}
+	</div>
+</div>

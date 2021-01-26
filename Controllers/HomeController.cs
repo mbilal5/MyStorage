@@ -1,12 +1,14 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Graph;
 using Microsoft.Identity.Web;
 
 namespace Project.Controllers
 {
+	[Authorize]
 	[AuthorizeForScopes]
 	public class HomeController : Controller
 	{

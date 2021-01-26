@@ -12,6 +12,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Identity.Web;
+using Project.Extensions;
+
 
 namespace Project
 {
@@ -35,6 +37,8 @@ namespace Project
 				.EnableTokenAcquisitionToCallDownstreamApi(initialScopes: scopes)
 				.AddInMemoryTokenCaches();
 
+			services.AddGraphServiceClient();
+			
 			services.AddControllersWithViews(options =>
 			{
 				var policy = new AuthorizationPolicyBuilder()

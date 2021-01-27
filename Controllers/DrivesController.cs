@@ -24,11 +24,8 @@ namespace Project.Controllers
 
 		public async Task<IActionResult> Index()
 		{
-			var models = new List<DriveViewModel>();
-			var drives = await _client.Drives.Request().GetAsync();
-			var drive = await _client.Me.Drive.Request().GetAsync();
-			models.AddRange(drives.Select(drive => new DriveViewModel(drive)));
-			models.Add(new DriveViewModel(drive));
+			var drives = await _client.Me.Drives.Request().GetAsync();
+			var models = drives.Select(drive => new DriveViewModel(drive));
 			return View(models);
 		}
 	}

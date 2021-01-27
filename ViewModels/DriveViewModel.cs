@@ -10,8 +10,6 @@ namespace Project.ViewModels
 		public string WebUrl { get; set; }
 		public string DriveType { get; set; }
 
-		public DriveViewModel() { }
-
 		public DriveViewModel(Drive drive)
 		{
 			Id = drive.Id;

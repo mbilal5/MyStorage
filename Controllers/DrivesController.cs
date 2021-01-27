@@ -28,5 +28,21 @@ namespace Project.Controllers
 			var models = drives.Select(drive => new DriveViewModel(drive));
 			return View(models);
 		}
+		
+		[Route("/[controller]/{name}")]
+		public async Task<IActionResult> Index(string name)
+		{
+			var drive = await _client.Me.Drives
+				.Request()
+				.Filter($"name eq '{name}'")
+				.GetAsync();
+			ViewBag.DriveName = name;
+			var children = await _client.Me.Drives[drive[0].Id].Root.Children
+				.Request()
+				.GetAsync();
+			var items = children.Select(item => DriveItemViewModel.Create(item));
+			
+			return View("Folder", items);
+		}
 	}
 }

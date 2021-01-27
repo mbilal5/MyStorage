@@ -1,0 +1,44 @@
+@model IEnumerable<DriveItemViewModel>
+
+<div class="p-5">
+	<nav>
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item">
+				<a href="/Drives">Drives</a>
+			</li>
+			<li class="breadcrumb-item active">
+				@(ViewBag.DriveName ?? ".")
+			</li>
+		</ol>
+	</nav>
+</div>
+<div class="datatable container p-5" data-mdb-hover="true" data-mdb-pagination="false">
+	<table>
+		<thead>
+			<tr>
+				<th scope="col"><span class="far fa-file"></span></th>
+				<th scope="col">Name</th>
+				<th scope="col">Last Modified</th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach(var item in Model)
+			{
+				<tr>
+					<td>
+						@if (item.ItemType == ItemType.Folder)
+						{
+							<span class="fas fa-folder" style="color: #FFCA28;"></span>
+						}
+						else
+						{
+							<span class="far fa-file-alt"></span>
+						}
+					</td>
+					<td>@(item.Name)</td>
+					<td>@(item.LastModifiedDateTime.Value.DateTime.ToString())</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+</div>

@@ -44,5 +44,21 @@ namespace Project.Controllers
 			
 			return View("Folder", items);
 		}
+		
+		[Route("/[controller]/{name}/{id}")]
+		public async Task<IActionResult> Folders(string name, string id)
+		{
+			var drive = await _client.Me.Drives
+				.Request()
+				.Filter($"name eq '{name}'")
+				.GetAsync();
+			
+			var folderItems = await _client.Me.Drives[drive[0].Id].Items[id].Children
+				.Request()
+				.GetAsync();
+
+			var models = folderItems.Select(item => DriveItemViewModel.Create(item));
+			return View("Folder", models);
+		}
 	}
 }

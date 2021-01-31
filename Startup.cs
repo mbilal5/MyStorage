@@ -13,7 +13,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Identity.Web;
 using Project.Extensions;
-
+using Project.Services;
 
 namespace Project
 {
@@ -38,7 +38,7 @@ namespace Project
 				.AddInMemoryTokenCaches();
 
 			services.AddGraphServiceClient();
-			
+			services.AddScoped<OneDriveExplorer>();
 			services.AddControllersWithViews(options =>
 			{
 				var policy = new AuthorizationPolicyBuilder()

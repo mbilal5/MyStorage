@@ -47,5 +47,11 @@ namespace Project.Services
 				.GetAsync();
 			return root;
 		}
+
+		public async Task<IEnumerable<DriveItem>> GetDriveRootByName(string name)
+		{
+			var drive = await GetDriveByName(name);
+			return await GetDriveRoot(drive.Id);
+		}
 	}
 }

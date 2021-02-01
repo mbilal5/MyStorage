@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Graph;
 using Microsoft.Identity.Web;
+using Project.Services;
 using Project.ViewModels;
 
 
@@ -15,16 +16,18 @@ namespace Project.Controllers
 	public class DrivesController : Controller
 	{
 		private readonly GraphServiceClient _client;
+		private readonly OneDriveExplorer _explorer;
 		
-		
-		public DrivesController(GraphServiceClient client)
+
+		public DrivesController(GraphServiceClient client, OneDriveExplorer explorer)
 		{
 			_client = client;
+			_explorer = explorer;
 		}
 
 		public async Task<IActionResult> Index()
 		{
-			var drives = await _client.Me.Drives.Request().GetAsync();
+			var drives = await _explorer.GetDrives();
 			var models = drives.Select(drive => new DriveViewModel(drive));
 			return View(models);
 		}
@@ -32,28 +35,19 @@ namespace Project.Controllers
 		[Route("/[controller]/{name}")]
 		public async Task<IActionResult> Index(string name)
 		{
-			var drive = await _client.Me.Drives
-				.Request()
-				.Filter($"name eq '{name}'")
-				.GetAsync();
+			var drive = await _explorer.GetDriveByName(name);
 			ViewBag.DriveName = name;
-			var children = await _client.Me.Drives[drive[0].Id].Root.Children
-				.Request()
-				.GetAsync();
+			var children = await _explorer.GetDriveRoot(drive.Id);
 			var items = children.Select(item => DriveItemViewModel.Create(item));
-			
 			return View("Folder", items);
 		}
 		
 		[Route("/[controller]/{name}/{id}")]
 		public async Task<IActionResult> Folders(string name, string id)
 		{
-			var drive = await _client.Me.Drives
-				.Request()
-				.Filter($"name eq '{name}'")
-				.GetAsync();
-			
-			var folderItems = await _client.Me.Drives[drive[0].Id].Items[id].Children
+			var drive = await _explorer.GetDriveByName(name);
+
+			var folderItems = await _client.Me.Drives[drive.Id].Items[id].Children
 				.Request()
 				.GetAsync();
 

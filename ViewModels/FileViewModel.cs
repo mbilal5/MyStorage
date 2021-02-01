@@ -5,6 +5,7 @@ namespace Project.ViewModels
 	public class FileViewModel : DriveItemViewModel
 	{
 		public Microsoft.Graph.File File { get; set; }
+		public string WebUrl { get; set; }
 
 		public FileViewModel(DriveItem item)
 		{
@@ -13,7 +14,13 @@ namespace Project.ViewModels
 			ParentReference = item.ParentReference;
 			LastModifiedDateTime = item.LastModifiedDateTime;
 			File = item.File;
+			WebUrl = item.WebUrl;
 			ItemType = ItemType.File;
+		}
+
+		public FileViewModel(DriveItem item, string driveId) : this(item)
+		{
+			DriveId = driveId;
 		}
 	}
 }

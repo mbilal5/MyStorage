@@ -16,5 +16,10 @@ namespace Project.ViewModels
 			Folder = item.Folder;
 			ItemType = ItemType.Folder;
 		}
+
+		public FolderViewModel(DriveItem item, string driveId) : this(item)
+		{
+			DriveId = driveId;
+		}
 	}
 }

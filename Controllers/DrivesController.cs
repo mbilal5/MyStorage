@@ -38,7 +38,7 @@ namespace Project.Controllers
 			var drive = await _explorer.GetDriveByName(name);
 			ViewBag.DriveName = name;
 			var children = await _explorer.GetDriveRoot(drive.Id);
-			var items = children.Select(item => DriveItemViewModel.Create(item));
+			var items = children.Select(item => DriveItemViewModel.Create(item, drive.Id));
 			return View("Folder", items);
 		}
 		
@@ -51,8 +51,22 @@ namespace Project.Controllers
 				.Request()
 				.GetAsync();
 
-			var models = folderItems.Select(item => DriveItemViewModel.Create(item));
+			var models = folderItems.Select(item => DriveItemViewModel.Create(item, drive.Id));
 			return View("Folder", models);
+		}
+
+		[Route("/[controller]/download/{driveId}/{fileId}")]
+		public async Task<IActionResult> DownloadFile(string driveId, string fileId)
+		{
+			var file = await _client.Drives[driveId].Items[fileId]
+				.Request()
+				.GetAsync();
+			
+			var content = await _client.Drives[driveId].Items[fileId].Content
+				.Request()
+				.GetAsync();
+			
+			return File(content, file.File.MimeType, file.Name);
 		}
 	}
 }

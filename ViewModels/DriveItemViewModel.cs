@@ -6,6 +6,7 @@ namespace Project.ViewModels
 	public class DriveItemViewModel
 	{
 		public string Id { get; set; }
+		public string DriveId { get; set; }
 		public string Name { get; set; }
 		public ItemReference ParentReference { get; set; }
 		public DateTimeOffset? LastModifiedDateTime { get; set; }
@@ -24,7 +25,14 @@ namespace Project.ViewModels
 			{
 				return new FolderViewModel(item);
 			}
-			
+
+		}
+
+		public static DriveItemViewModel Create(DriveItem item, string driveId)
+		{
+			var model = Create(item);
+			model.DriveId = driveId;
+			return model;
 		}
 
 	}

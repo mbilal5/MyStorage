@@ -19,6 +19,7 @@
 				<th scope="col"><span class="far fa-file"></span></th>
 				<th scope="col">Name</th>
 				<th scope="col">Last Modified</th>
+				<th scope="col">Actions</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -41,6 +42,15 @@
 						</a>
 					</td>
 					<td>@(item.LastModifiedDateTime.Value.DateTime.ToString())</td>
+					<td>
+						@if(item.ItemType == ItemType.File)
+						{
+							var downloadUrl = $"/drives/download/{item.DriveId}/{item.Id}";
+							<a href="@(downloadUrl)" class="text-dark" download>
+								<span class="fas fa-download"></span>
+							</a>
+						}
+					</td>
 				</tr>
 			}
 		</tbody>

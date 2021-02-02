@@ -1,7 +1,7 @@
 using System;
 using Microsoft.Graph;
 
-namespace Project.ViewModels
+namespace MyStorage.ViewModels
 {
 	public class DriveItemViewModel
 	{

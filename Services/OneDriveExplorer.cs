@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.Graph;
 
-namespace Project.Services
+namespace MyStorage.Services
 {
 	public class OneDriveExplorer
 	{

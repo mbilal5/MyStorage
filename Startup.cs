@@ -12,10 +12,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Identity.Web;
-using Project.Extensions;
-using Project.Services;
+using MyStorage.Extensions;
+using MyStorage.Services;
 
-namespace Project
+namespace MyStorage
 {
 	public class Startup
 	{

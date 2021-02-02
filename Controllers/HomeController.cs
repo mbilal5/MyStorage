@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Graph;
 using Microsoft.Identity.Web;
 
-namespace Project.Controllers
+namespace MyStorage.Controllers
 {
 	[Authorize]
 	[AuthorizeForScopes]

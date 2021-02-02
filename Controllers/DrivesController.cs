@@ -5,11 +5,11 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Graph;
 using Microsoft.Identity.Web;
-using Project.Services;
-using Project.ViewModels;
+using MyStorage.Services;
+using MyStorage.ViewModels;
 
 
-namespace Project.Controllers
+namespace MyStorage.Controllers
 {
 	[Authorize]
 	[AuthorizeForScopes]

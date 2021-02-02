@@ -3,7 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Graph;
 using Microsoft.Identity.Web;
 
-namespace Project.Extensions
+namespace MyStorage.Extensions
 {
 	public static class AddGraphServiceClientExtensions
 	{

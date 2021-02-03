@@ -10,7 +10,7 @@ namespace MyStorage.Data.Tests.Factories
 		{
 			var app = ConfidentialClientApplicationBuilder.Create(clientId)
 				.WithClientSecret(clientSecret)
-				.WithRedirectUri("https://login.microsoftonline.com/common/oauth2/nativeclient")
+				.WithAuthority(AadAuthorityAudience.AzureAdMyOrg)
 				.WithTenantId(tenantId)
 				.Build();
 			

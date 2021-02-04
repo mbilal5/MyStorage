@@ -9,12 +9,12 @@ using Xunit.Abstractions;
 
 namespace MyStorage.Data.Tests.ExplorerTests
 {
-	public class DriveExplorerTests : IClassFixture<GraphServiceClientFixture>
+	public class OneDriveExplorerTests : IClassFixture<GraphServiceClientFixture>
 	{
 		private readonly GraphServiceClient _client;
 		private readonly OneDriveExplorer _explorer;
 
-		public DriveExplorerTests(GraphServiceClientFixture fixture)
+		public OneDriveExplorerTests(GraphServiceClientFixture fixture)
 		{
 			_client = fixture.GraphServiceClient;
 			_explorer = new OneDriveExplorer(_client);

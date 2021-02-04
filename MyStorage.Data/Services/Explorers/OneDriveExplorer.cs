@@ -1,4 +1,7 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Graph;
 using MyStorage.Data.Entities;
@@ -34,7 +37,14 @@ namespace MyStorage.Data.Services.Explorers
 				throw e;
 			}
 		}
-
+		
+		public async Task<IEnumerable<StorageDrive>> GetDrives()
+		{
+			var drives = await _client.Drives.Request().GetAsync();
+			var storageDrives = drives.Select(drive => new StorageDrive(drive));
+			return storageDrives;
+		}
+		
 		public async Task<StorageDrive> GetDriveByName(string name)
 		{
 			throw new System.NotImplementedException();

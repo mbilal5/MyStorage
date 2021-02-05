@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Graph;
@@ -68,6 +69,20 @@ namespace MyStorage.Data.Services.Explorers
 			var drive = await _client.Me.Drive
 				.Request()
 				.GetAsync();
+			return new StorageDrive(drive);
+		}
+		
+		public async Task<StorageDrive> GetUserDrive(string upn)
+		{
+			var emailAttribute = new EmailAddressAttribute();
+			if (!emailAttribute.IsValid(upn))
+			{
+				throw new ApplicationException($"The User Principal Name: \"{upn}\" is not valid.");
+			}
+
+			var drive = await _client.Users[upn].Drive
+					.Request()
+					.GetAsync();
 			return new StorageDrive(drive);
 		}
 	}

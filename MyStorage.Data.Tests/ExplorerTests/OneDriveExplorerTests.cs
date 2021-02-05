@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Graph;
+using MyStorage.Data.Entities;
 using MyStorage.Data.Services.Explorers;
 using MyStorage.Data.Tests.Fixtures;
 using Xunit;
@@ -57,6 +58,27 @@ namespace MyStorage.Data.Tests.ExplorerTests
 			{
 				var drive = await _explorer.GetUserDrive();
 				Assert.NotNull(drive);
+			});
+		}
+		
+		[Fact]
+		public async Task GetUserDriveWithUpnReturnsUserDrive()
+		{
+			string upn = "mbilal@mbilaldev.onmicrosoft.com";
+
+			var drive = await _explorer.GetUserDrive(upn);
+
+			Assert.NotNull(drive);
+		}
+		
+		[Fact]
+		public async Task GetUserDriveWithInvalidUpnRaisesException()
+		{
+			string upn = "not an email";
+
+			await Assert.ThrowsAnyAsync<ApplicationException>(async () =>
+			{
+				var drive = await _explorer.GetUserDrive(upn);
 			});
 		}
 	}

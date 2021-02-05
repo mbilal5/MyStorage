@@ -9,6 +9,7 @@ namespace MyStorage.Data.Services.Explorers
 	{
 		Task<StorageDrive> GetDrive(string id);
 		Task<StorageDrive> GetUserDrive();
+		Task<StorageDrive> GetUserDrive(string id);
 		Task<StorageDrive> GetDriveByName(string name);
 		Task<IEnumerable<StorageDrive>> GetDrives();
 	}

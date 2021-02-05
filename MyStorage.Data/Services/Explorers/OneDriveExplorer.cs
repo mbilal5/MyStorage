@@ -47,7 +47,20 @@ namespace MyStorage.Data.Services.Explorers
 		
 		public async Task<StorageDrive> GetDriveByName(string name)
 		{
-			throw new System.NotImplementedException();
+			var drives = await _client.Drives
+				.Request()
+				.Filter($"Name eq \'{name}\'")
+				.GetAsync();
+			
+			if (drives.Count > 1)
+				throw new ApplicationException($"The given Drive Name: \"{name}\" resolved to multiple drives");
+			else if (drives.Count == 0)
+				throw new ApplicationException($"No drives were found with a Drive Name: \"{name}\". ");
+			
+			if (drives[0].Name != name)
+				throw new ApplicationException($"Received a faulty response. Requested Drive with Name: \"{name}\" but received drive with Name: \"{drives[0].Name}\"");
+
+			return new StorageDrive(drives[0]);
 		}
 		
 		public async Task<StorageDrive> GetUserDrive()

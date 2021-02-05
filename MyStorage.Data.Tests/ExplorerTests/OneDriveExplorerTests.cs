@@ -37,5 +37,17 @@ namespace MyStorage.Data.Tests.ExplorerTests
 			
 			Assert.Equal(driveId, drive.Id);
 		}
+		
+		[Fact]
+		public async Task GetDriveByNameReturnsNamedDrive()
+		{
+			string driveId = "b!wI6hmZwqZkS8M88Bsgbp5uwhD_Lv9Y9OiyhZIqo2y9RPgzYZ8aH4Rrh64WbIs-1P";
+			var drive = await _explorer.GetDrive(driveId);
+
+			var result = await _explorer.GetDriveByName(drive.Name);
+
+			Assert.Equal(drive.Name, result.Name);
+			Assert.Equal(drive.Id, result.Id);
+		}
 	}
 }

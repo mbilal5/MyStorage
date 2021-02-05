@@ -65,7 +65,10 @@ namespace MyStorage.Data.Services.Explorers
 		
 		public async Task<StorageDrive> GetUserDrive()
 		{
-			throw new System.NotImplementedException();
+			var drive = await _client.Me.Drive
+				.Request()
+				.GetAsync();
+			return new StorageDrive(drive);
 		}
 	}
 }

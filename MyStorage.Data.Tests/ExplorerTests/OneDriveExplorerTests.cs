@@ -49,5 +49,15 @@ namespace MyStorage.Data.Tests.ExplorerTests
 			Assert.Equal(drive.Name, result.Name);
 			Assert.Equal(drive.Id, result.Id);
 		}
+		
+		[Fact]
+		public async Task GetUserDriveRaisesExceptionForClientCredentials()
+		{
+			await Assert.ThrowsAsync<ServiceException>(async () =>
+			{
+				var drive = await _explorer.GetUserDrive();
+				Assert.NotNull(drive);
+			});
+		}
 	}
 }
